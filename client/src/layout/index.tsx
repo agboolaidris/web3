@@ -7,11 +7,9 @@ interface StyleProps {
   theme?: Theme;
 }
 
-
 const Wrapper = styled(Box)<StyleProps>`
   background: ${({ theme }) => theme.palette.grey[300]};
   min-height: 100vh;
-
 `;
 
 interface Props {
@@ -22,10 +20,8 @@ function Index({ children }: Props) {
   return (
     <Wrapper>
       <Toobar />
-      <Container>
-        {children}
 
-      </Container>
+      {children}
     </Wrapper>
   );
 }

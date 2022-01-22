@@ -1,5 +1,10 @@
 import Head from 'next/head';
 import Layout from '../layout';
-const Home = () => <Layout>Hellow WORLD</Layout>;
+import Welcome from '../components/service';
+const Home = () => (
+  <Layout>
+    <Welcome />
+  </Layout>
+);
 
 export default Home;
