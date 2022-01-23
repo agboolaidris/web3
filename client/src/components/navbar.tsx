@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
   IconButton,
@@ -80,7 +80,7 @@ const Menu = styled.ul<{ theme?: Theme; open: boolean }>`
   }
 `;
 
-const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean }>`
+const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean; open?: boolean }>`
   height: 80px;
   color: ${({ theme }) => theme.palette.common.white};
   position: fixed;
@@ -88,6 +88,12 @@ const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean }>`
   z-index: 200;
   ${({ bg, theme }) =>
     bg &&
+    css`
+      background: ${`${theme.colors.grey}90`};
+    `};
+
+  ${({ open, theme }) =>
+    open &&
     css`
       background: ${theme.colors.grey};
     `};
@@ -102,8 +108,22 @@ export default function Index() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [bg, setBg] = useState(false);
+
+  const changeBackground = () => {
+    const scroll = window.scrollY;
+
+    if (scroll > 100) {
+      setBg(true);
+    } else {
+      setBg(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', changeBackground);
+  }, []);
+
   return (
-    <ToolBar bg={open ? true : bg}>
+    <ToolBar open={open} bg={bg}>
       <Typography variant="h6" component="div" sx={{ mr: 2 }}>
         EasyCoin
       </Typography>

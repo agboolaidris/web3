@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Container, Typography, Theme, alpha } from '@mui/material';
-import EtherumCard from '../shared/etherumCard';
-import EthereumIcon from '../svg/ethureum';
+import EthereumIcon from './svg/ethureum';
 
 const Wrap = styled.div<{ theme?: Theme }>`
   background-color: #5e6c86;
