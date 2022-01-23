@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Container, Typography, Theme, alpha } from '@mui/material';
 import EthereumIcon from './svg/ethureum';
-
+import { Button } from './shared/button';
 const Wrap = styled.div<{ theme?: Theme }>`
   background-color: #5e6c86;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%235E6C86' cx='50' cy='0' r='50'/%3E%3Cg fill='%235b6d8f' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23596e99' cx='50' cy='100' r='50'/%3E%3Cg fill='%23586ea2' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23576eab' cx='50' cy='200' r='50'/%3E%3Cg fill='%23586eb4' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23596ebd' cx='50' cy='300' r='50'/%3E%3Cg fill='%235c6dc5' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23606ccd' cx='50' cy='400' r='50'/%3E%3Cg fill='%23666bd4' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%236c69db' cx='50' cy='500' r='50'/%3E%3Cg fill='%237467e2' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%237d64e8' cx='50' cy='600' r='50'/%3E%3Cg fill='%238760ed' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23925bf2' cx='50' cy='700' r='50'/%3E%3Cg fill='%239d56f6' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a94ff9' cx='50' cy='800' r='50'/%3E%3Cg fill='%23b646fc' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c23afe' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d029ff' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
@@ -13,22 +13,22 @@ const Wrap = styled.div<{ theme?: Theme }>`
   padding-top: 100px;
 `;
 
-const Button = styled.button<{ theme?: Theme; active?: boolean }>`
-  background: ${({ theme }) => theme.colors.pink};
-  height: 50px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  width: 400px;
-  max-width: 100%;
-  color: ${({ theme }) => theme.palette.common.white};
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 20px;
-  &:hover {
-    background: ${({ theme }) => alpha(theme.colors.pink, 0.8)};
-  }
-`;
+// const Button = styled.button<{ theme?: Theme; active?: boolean }>`
+//   background: ${({ theme }) => theme.colors.pink};
+//   height: 50px;
+//   border: none;
+//   border-radius: 50px;
+//   font-size: 1rem;
+//   width: 400px;
+//   max-width: 100%;
+//   color: ${({ theme }) => theme.palette.common.white};
+//   padding: 10px;
+//   cursor: pointer;
+//   margin-top: 20px;
+//   &:hover {
+//     background: ${({ theme }) => alpha(theme.colors.pink, 0.8)};
+//   }
+// `;
 const IconWrap = styled.div<{ theme?: Theme }>`
   width: 80px;
   height: 80px;
@@ -70,7 +70,9 @@ function Index() {
             EasyCoin is the easiest place to buy and sell cryptocurrency. Sign
             up and get started today.
           </Typography>
-          <Button>Connect Wallet</Button>
+          <Button sx={{ width: { xs: '100%', md: '400px' }, marginTop: 2 }}>
+            Connect Wallet
+          </Button>
         </Box>
       </Container>
     </Wrap>
