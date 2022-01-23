@@ -12,8 +12,8 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "__dirname"
+    "project": "./tsconfig.json"
+    //"tsconfigRootDir": "__dirname"
   },
   "extends": [
     "next/core-web-vitals",

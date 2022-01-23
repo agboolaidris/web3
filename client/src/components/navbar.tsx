@@ -1,42 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import {
-  IconButton,
-  Typography,
-  Toolbar,
-  Box,
-  Theme,
-  alpha,
-} from '@mui/material';
+import { IconButton, Typography, Toolbar, Box, Theme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { Button } from './shared/button';
 
-const Button = styled.button<{ theme?: Theme; active?: boolean }>`
-  width: 150px;
-  text-transform: capitalize;
-  background: ${({ theme }) => theme.colors.pink};
-  height: 40px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  color: ${({ theme }) => theme.palette.common.white};
-  margin-left: 40px;
-  cursor: pointer;
-  &:hover {
-    background: ${({ theme }) => alpha(theme.colors.pink, 0.8)};
-  }
-
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    margin-left: 0px;
-    width: 100%;
-    margin: 0;
-    margin-top: 10px;
-    text-align: center;
-    padding: 10px;
-  }
-`;
 const List = styled.li<{ theme?: Theme; active?: boolean }>`
   margin-left: 40px;
   font-size: 1.3rem;
@@ -80,7 +50,7 @@ const Menu = styled.ul<{ theme?: Theme; open: boolean }>`
   }
 `;
 
-const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean }>`
+const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean; open?: boolean }>`
   height: 80px;
   color: ${({ theme }) => theme.palette.common.white};
   position: fixed;
@@ -88,6 +58,12 @@ const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean }>`
   z-index: 200;
   ${({ bg, theme }) =>
     bg &&
+    css`
+      background: ${`${theme.colors.grey}90`};
+    `};
+
+  ${({ open, theme }) =>
+    open &&
     css`
       background: ${theme.colors.grey};
     `};
@@ -102,8 +78,22 @@ export default function Index() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [bg, setBg] = useState(false);
+
+  const changeBackground = () => {
+    const scroll = window.scrollY;
+
+    if (scroll > 100) {
+      setBg(true);
+    } else {
+      setBg(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', changeBackground);
+  }, []);
+
   return (
-    <ToolBar bg={open ? true : bg}>
+    <ToolBar open={open} bg={bg}>
       <Typography variant="h6" component="div" sx={{ mr: 2 }}>
         EasyCoin
       </Typography>
@@ -126,7 +116,16 @@ export default function Index() {
           );
         })}
 
-        <Button onClick={() => setOpen(false)}>LOGIN</Button>
+        <Button
+          sx={{
+            marginLeft: { md: '40px' },
+            width: { xs: '100%', md: '150px' },
+            marginTop: { xs: '10px', md: 0 },
+          }}
+          onClick={() => setOpen(false)}
+        >
+          Login
+        </Button>
       </Menu>
     </ToolBar>
   );
