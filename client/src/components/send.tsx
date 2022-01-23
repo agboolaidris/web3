@@ -4,16 +4,15 @@ import InputText from './shared/inputText';
 import EthereumCard from './shared/etherumCard';
 import styled from '@emotion/styled';
 const Form = styled.form<{ theme?: Theme }>`
-  width: 400px;
+  width: 600px;
   max-width: 100%;
   margin: 0 auto;
-  background: ${({ theme }) => theme.colors.grey};
   padding: 10px;
-  border-radius: 10px;
+  box-shadow: 5px 5px 15px 5px ${({ theme }) => theme.colors.grey};
 `;
 function Index() {
   return (
-    <Container sx={{ paddingY: 5 }}>
+    <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
       <Grid container width="100%" spacing={1}>
         <Grid md={6} xs={12}>
           <Box
@@ -27,7 +26,7 @@ function Index() {
             <EthereumCard />
           </Box>
         </Grid>
-        <Grid md={6} xs={12} sx={{ marginY: { xs: 2, md: 0 } }}>
+        <Grid md={6} xs={12} sx={{ marginY: { xs: 10, md: 0 } }}>
           <Form>
             <InputText />
           </Form>

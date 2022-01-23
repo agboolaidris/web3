@@ -23,6 +23,9 @@ const Card = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  box-shadow: 5px 5px 0px 0px #ffb56b, 10px 10px 0px 0px #ff00d4,
+    15px 15px 0px 0px #ff00ad, 20px 20px 0px 0px #ffb56b,
+    25px 25px 0px 0px #e1eeff, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 `;
 
 const IconWrap = styled.div<{ theme?: Theme }>`
