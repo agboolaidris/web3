@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Container, Box, Theme, Typography } from '@mui/material';
 import InputText from './shared/inputText';
 import EthereumCard from './shared/etherumCard';
@@ -19,6 +19,16 @@ const Form = styled.form<{ theme?: Theme }>`
   }
 `;
 function Index() {
+  const [state, setState] = useState({
+    address: '',
+    amount: '',
+    message: '',
+    gift: '',
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(state);
+  };
   return (
     <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
       <Grid container width="100%" spacing={1} alignItems="center">
@@ -35,18 +45,38 @@ function Index() {
           </Box>
         </Grid>
         <Grid md={6} xs={12} sx={{ marginY: { xs: 10, md: 0 } }}>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Typography variant="h6" sx={{ textAlign: 'center' }}>
               Send Crypto Now
             </Typography>
-            <InputText placeholder="Address To" Icon={<ContactsIcon />} />
-            <InputText placeholder="Amount (ETH)" Icon={<AttachMoneyIcon />} />
+            <InputText
+              placeholder="Address To"
+              Icon={<ContactsIcon />}
+              value={state.address}
+              onChange={(value) => setState({ ...state, address: value })}
+            />
+            <InputText
+              placeholder="Amount (ETH)"
+              Icon={<AttachMoneyIcon />}
+              value={state.amount}
+              onChange={(value) => setState({ ...state, amount: value })}
+            />
             <InputText
               placeholder="Key word (Gif)"
               Icon={<CardGiftcardIcon />}
+              value={state.gift}
+              onChange={(value) => setState({ ...state, gift: value })}
             />
-            <InputText placeholder="Enter Message" Icon={<CreateIcon />} />
-            <Button sx={{ width: { xs: '100%' }, marginTop: '10px' }}>
+            <InputText
+              placeholder="Enter Message"
+              Icon={<CreateIcon />}
+              value={state.message}
+              onChange={(value) => setState({ ...state, message: value })}
+            />
+            <Button
+              sx={{ width: { xs: '100%' }, marginTop: '10px' }}
+              type="submit"
+            >
               Send Now
             </Button>
           </Form>

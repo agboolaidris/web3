@@ -24,12 +24,18 @@ const InputWrapper = styled.div<{ theme?: Theme }>`
 interface Props {
   placeholder: string;
   Icon?: ReactNode;
+  value: string;
+  onChange: (string) => void;
 }
-function InputText({ placeholder, Icon }: Props) {
+function InputText({ placeholder, Icon, value, onChange }: Props) {
   return (
     <InputWrapper>
       {Icon && <IconButton>{Icon}</IconButton>}
-      <input placeholder={placeholder} />
+      <input
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </InputWrapper>
   );
 }
