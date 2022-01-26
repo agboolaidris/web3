@@ -19,9 +19,14 @@ const Form = styled.form<{ theme?: Theme }>`
   }
 `;
 
-
 function Index() {
-  const [state, setState] = useState({
+  const [formData, setFormData] = useState({
+    address: '',
+    amount: '',
+    message: '',
+    gift: '',
+  });
+  const [errors, setErrors] = useState({
     address: '',
     amount: '',
     message: '',
@@ -29,7 +34,15 @@ function Index() {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
+    const { address, amount, gift, message } = formData;
+    if (!address || !amount || !gift || !message) {
+      const errors = {
+        address: address.trim() == '' ? 'address is required' : null,
+      };
+      setErrors(errors);
+    }
+
+    //console.log(state);
   };
   return (
     <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
@@ -54,26 +67,31 @@ function Index() {
             <InputText
               placeholder="Address To"
               Icon={<ContactsIcon />}
-              value={state.address}
-              onChange={(value) => setState({ ...state, address: value })}
+              value={formData.address}
+              error={errors.address}
+              onChange={(value) => setFormData({ ...formData, address: value })}
             />
             <InputText
               placeholder="Amount (ETH)"
               Icon={<AttachMoneyIcon />}
-              value={state.amount}
-              onChange={(value) => setState({ ...state, amount: value })}
+              value={formData.amount}
+              type="number"
+              error={errors.amount}
+              onChange={(value) => setFormData({ ...formData, amount: value })}
             />
             <InputText
               placeholder="Key word (Gif)"
               Icon={<CardGiftcardIcon />}
-              value={state.gift}
-              onChange={(value) => setState({ ...state, gift: value })}
+              value={formData.gift}
+              error={errors.gift}
+              onChange={(value) => setFormData({ ...formData, gift: value })}
             />
             <InputText
               placeholder="Enter Message"
               Icon={<CreateIcon />}
-              value={state.message}
-              onChange={(value) => setState({ ...state, message: value })}
+              value={formData.message}
+              error={errors.message}
+              onChange={(value) => setFormData({ ...formData, message: value })}
             />
             <Button
               sx={{ width: { xs: '100%' }, marginTop: '10px' }}

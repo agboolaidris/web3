@@ -15,7 +15,7 @@ const List = styled.li<{ theme?: Theme; active?: boolean }>`
     color: ${({ theme }) => theme.colors.pink};
   }
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
+  ${({ theme }) => theme.breakpoints.down('md')} {
     margin-left: 0px;
     width: 100%;
     margin: 0;
@@ -30,7 +30,7 @@ const Menu = styled.ul<{ theme?: Theme; open: boolean }>`
   align-items: center;
   list-style: none;
   z-index: 200;
-  ${({ theme }) => theme.breakpoints.down('sm')} {
+  ${({ theme }) => theme.breakpoints.down('md')} {
     position: absolute;
     top: 60px;
     left: 0;
@@ -99,7 +99,7 @@ export default function Index() {
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       <IconButton
-        sx={{ display: { sm: 'none' } }}
+        sx={{ display: { md: 'none' } }}
         onClick={() => setOpen(!open)}
       >
         {open ? (

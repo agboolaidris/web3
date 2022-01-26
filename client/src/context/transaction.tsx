@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { smart_address, contract_abi } from '../utils/constant';
 
 const getEthereumContract = () => {
+  const { ethereum } = window;
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(
@@ -20,14 +21,15 @@ const getEthereumContract = () => {
 export const TransactionContext = createContext(null);
 
 export const TransactionProvider = ({ children }: { children: ReactNode }) => {
+  const [userWallet, setUserWallet] = useState('');
   useEffect(() => {
     const { ethereum } = window;
     const checkedIFWalletIsConnected = async () => {
       if (!ethereum) return alert('install metamask');
       else {
         const account = await ethereum.request({ method: 'eth_accounts' });
-        if(account.length>0){
-            
+        if (account.length > 0) {
+          setUserWallet(account[0]);
         }
       }
     };
@@ -46,7 +48,6 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (error) {
       console.log(error);
-      throw new Error('No Ethereum object');
     }
   };
   return (
