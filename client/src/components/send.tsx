@@ -32,6 +32,10 @@ function Index() {
     message: '',
     gift: '',
   });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const { address, amount, gift, message } = formData;
@@ -69,7 +73,8 @@ function Index() {
               Icon={<ContactsIcon />}
               value={formData.address}
               error={errors.address}
-              onChange={(value) => setFormData({ ...formData, address: value })}
+              onChange={handleChange}
+              name="address"
             />
             <InputText
               placeholder="Amount (ETH)"
@@ -77,21 +82,24 @@ function Index() {
               value={formData.amount}
               type="number"
               error={errors.amount}
-              onChange={(value) => setFormData({ ...formData, amount: value })}
+              onChange={handleChange}
+              name="amount"
             />
             <InputText
               placeholder="Key word (Gif)"
               Icon={<CardGiftcardIcon />}
               value={formData.gift}
               error={errors.gift}
-              onChange={(value) => setFormData({ ...formData, gift: value })}
+              onChange={handleChange}
+              name="gift"
             />
             <InputText
               placeholder="Enter Message"
               Icon={<CreateIcon />}
               value={formData.message}
               error={errors.message}
-              onChange={(value) => setFormData({ ...formData, message: value })}
+              onChange={handleChange}
+              name="message"
             />
             <Button
               sx={{ width: { xs: '100%' }, marginTop: '10px' }}

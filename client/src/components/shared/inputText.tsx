@@ -42,11 +42,20 @@ interface Props {
   placeholder: string;
   Icon?: ReactNode;
   value: string;
-  onChange: (e: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: React.HTMLInputTypeAttribute;
   error?: string;
+  name: string;
 }
-function InputText({ placeholder, Icon, value, onChange, type, error }: Props) {
+function InputText({
+  placeholder,
+  Icon,
+  value,
+  onChange,
+  type,
+  error,
+  name,
+}: Props) {
   let err = useMemo(() => error, [error]);
   return (
     <InputWrapper error={err ? err.length > 0 : false}>
@@ -55,11 +64,9 @@ function InputText({ placeholder, Icon, value, onChange, type, error }: Props) {
         <input
           value={value}
           placeholder={placeholder}
-          onChange={(e) => {
-            err = '';
-            onChange(e.target.value);
-          }}
+          onChange={(e) => onChange(e)}
           type={type}
+          name={name}
         />
       </div>
       {err && err.length > 0 && <span>{err}</span>}
