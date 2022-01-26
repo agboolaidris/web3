@@ -26,14 +26,31 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
       if (!ethereum) return alert('install metamask');
       else {
         const account = await ethereum.request({ method: 'eth_accounts' });
-        console.log(account);
+        if(account.length>0){
+            
+        }
       }
     };
     checkedIFWalletIsConnected();
   }, []);
 
+  const connectToWallet = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) return alert('install metamask');
+      else {
+        const account = await ethereum.request({
+          method: 'eth_requestAccounts',
+        });
+        console.log(account);
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error('No Ethereum object');
+    }
+  };
   return (
-    <TransactionContext.Provider value={{ value: 'ade' }}>
+    <TransactionContext.Provider value={{ connectToWallet }}>
       {children}
     </TransactionContext.Provider>
   );
