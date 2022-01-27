@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Grid, Container, Box, Theme, Typography } from '@mui/material';
 import InputText from './shared/inputText';
 import EthereumCard from './shared/etherumCard';
@@ -8,6 +8,10 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from './shared/button';
+import { getEthereumContract } from '../utils/contract';
+import { ethers } from 'ethers';
+import { TransactionContext } from '../context/transaction';
+
 const Form = styled.form<{ theme?: Theme }>`
   width: 600px;
   max-width: 100%;
@@ -33,17 +37,45 @@ function Index() {
     gift: '',
   });
 
+  const { userAccount } = useContext(TransactionContext);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ address: '', amount: '', message: '', gift: '' });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { address, amount, gift, message } = formData;
-    if (!address || !amount || !gift || !message) {
-      const errors = {
-        address: address.trim() == '' ? 'address is required' : null,
+    const { ethereum } = window as any;
+
+    if (
+      address.trim() == '' ||
+      message.trim() == '' ||
+      amount.trim() == '' ||
+      gift.trim() == ''
+    ) {
+      const error = {
+        ...errors,
+        address: address.trim() == '' ? 'address is required' : '',
+        message: message.trim() == '' ? 'message is required' : '',
+        amount: amount.trim() == '' ? 'amount is required' : '',
+        gift: gift.trim() == '' ? 'gift is required' : '',
       };
-      setErrors(errors);
+      setErrors(error);
+    } else {
+      const transactionContract = getEthereumContract();
+      await ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: userAccount,
+            to: address,
+            gas: '0x5208',
+            amount: ethers.utils.parseEther(amount)._hex,
+          },
+        ],
+      });
+      transactionContract.addToBlockchain()
     }
 
     //console.log(state);

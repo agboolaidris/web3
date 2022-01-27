@@ -56,7 +56,7 @@ function InputText({
   error,
   name,
 }: Props) {
-  let err = useMemo(() => error, [error]);
+  const err = useMemo(() => error, [error]);
   return (
     <InputWrapper error={err ? err.length > 0 : false}>
       <div>
