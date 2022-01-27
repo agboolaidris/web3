@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Container, Typography, Theme } from '@mui/material';
 import EthereumIcon from './svg/ethureum';
 import { Button } from './shared/button';
-import { TransactionContext } from './../context/transaction';
+import { connectToWallet } from '../utils/contract';
 
 const Wrap = styled.div<{ theme?: Theme }>`
   background-color: #5e6c86;
@@ -30,7 +30,6 @@ const IconWrap = styled.div<{ theme?: Theme }>`
 `;
 
 function Index() {
-  const { connectToWallet } = useContext(TransactionContext);
   return (
     <Wrap>
       <Container sx={{ paddingY: { md: 10, xs: 4 } }}>
@@ -38,8 +37,8 @@ function Index() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: { xs: 'flex-start', md: 'center' },
-            alignItems: { xs: 'flex-start', md: 'center' },
+            justifyContent: { xs: 'flex-start', sm: 'center' },
+            alignItems: { xs: 'flex-start', sm: 'center' },
           }}
         >
           <IconWrap>
@@ -58,7 +57,7 @@ function Index() {
             up and get started today.
           </Typography>
           <Button
-            sx={{ width: { xs: '100%', md: '400px' }, marginTop: 2 }}
+            sx={{ width: { xs: '100%', sm: '400px' }, marginTop: 2 }}
             onClick={connectToWallet}
           >
             Connect Wallet
