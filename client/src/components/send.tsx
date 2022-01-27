@@ -28,57 +28,71 @@ function Index() {
     address: '',
     amount: '',
     message: '',
-    gift: '',
+    keyword: '',
   });
   const [errors, setErrors] = useState({
     address: '',
     amount: '',
     message: '',
-    gift: '',
+    keyword: '',
   });
 
   const { userAccount } = useContext(TransactionContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ address: '', amount: '', message: '', gift: '' });
+    setErrors({ address: '', amount: '', message: '', keyword: '' });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { address, amount, gift, message } = formData;
+    const { address, amount, keyword, message } = formData;
     const { ethereum } = window as any;
 
     if (
       address.trim() == '' ||
       message.trim() == '' ||
       amount.trim() == '' ||
-      gift.trim() == ''
+      keyword.trim() == ''
     ) {
       const error = {
         ...errors,
         address: address.trim() == '' ? 'address is required' : '',
         message: message.trim() == '' ? 'message is required' : '',
         amount: amount.trim() == '' ? 'amount is required' : '',
-        gift: gift.trim() == '' ? 'gift is required' : '',
+        keyword: keyword.trim() == '' ? 'keyword is required' : '',
       };
       setErrors(error);
     } else {
-      const transactionContract = getEthereumContract();
-      await ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [
-          {
-            from: userAccount,
-            to: address,
-            gas: '0x5208',
-            amount: ethers.utils.parseEther(amount)._hex,
-          },
-        ],
-      });
-      transactionContract.addToBlockchain()
-    }
+      try {
+        const transactionContract = getEthereumContract();
+        const hex_amount = ethers.utils.parseEther(amount)._hex;
+        await ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              from: userAccount,
+              to: address,
+              gas: '0x76c0', // 30400
+              // gasPrice: '0x9184e72a000', // 10000000000000
+              value: hex_amount,
+            },
+          ],
+        });
 
-    //console.log(state);
+        await transactionContract.addToBlockChain(
+          address,
+          hex_amount,
+          message,
+          keyword
+        );
+
+        const transactionCount =
+          await transactionContract.getTransactionCount();
+        console.log(transactionCount.toNumber());
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
   return (
     <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
@@ -120,10 +134,10 @@ function Index() {
             <InputText
               placeholder="Key word (Gif)"
               Icon={<CardGiftcardIcon />}
-              value={formData.gift}
-              error={errors.gift}
+              value={formData.keyword}
+              error={errors.keyword}
               onChange={handleChange}
-              name="gift"
+              name="keyword"
             />
             <InputText
               placeholder="Enter Message"

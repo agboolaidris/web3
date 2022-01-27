@@ -37,8 +37,8 @@ function Index() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: { xs: 'flex-start', md: 'center' },
-            alignItems: { xs: 'flex-start', md: 'center' },
+            justifyContent: { xs: 'flex-start', sm: 'center' },
+            alignItems: { xs: 'flex-start', sm: 'center' },
           }}
         >
           <IconWrap>
@@ -57,7 +57,7 @@ function Index() {
             up and get started today.
           </Typography>
           <Button
-            sx={{ width: { xs: '100%', md: '400px' }, marginTop: 2 }}
+            sx={{ width: { xs: '100%', sm: '400px' }, marginTop: 2 }}
             onClick={connectToWallet}
           >
             Connect Wallet
