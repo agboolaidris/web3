@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Grid, Container, Box, Theme, Typography } from '@mui/material';
 import InputText from './shared/inputText';
 import EthereumCard from './shared/etherumCard';
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -104,9 +105,18 @@ function Index() {
               flexDirection: 'column',
               alignItems: 'center',
               width: '100%',
+              height: '300px',
+              overflow: 'hidden',
             }}
           >
-            <EthereumCard />
+            <Image
+              src="/crypto.svg"
+              alt="cryto"
+              width="400px"
+              height="500px"
+              layout="intrinsic"
+            />
+            {/* <EthereumCard /> */}
           </Box>
         </Grid>
         <Grid md={6} xs={12} sx={{ marginY: { xs: 10, md: 0 } }}>
