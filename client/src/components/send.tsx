@@ -36,6 +36,7 @@ function Index() {
     message: '',
     keyword: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const { userAccount } = useContext(TransactionContext);
 
@@ -66,6 +67,7 @@ function Index() {
       try {
         const transactionContract = getEthereumContract();
         const hex_amount = ethers.utils.parseEther(amount)._hex;
+        setLoading(true);
         await ethereum.request({
           method: 'eth_sendTransaction',
           params: [
@@ -73,7 +75,6 @@ function Index() {
               from: userAccount,
               to: address,
               gas: '0x76c0', // 30400
-              // gasPrice: '0x9184e72a000', // 10000000000000
               value: hex_amount,
             },
           ],
@@ -88,9 +89,18 @@ function Index() {
 
         const transactionCount =
           await transactionContract.getTransactionCount();
+
+        setLoading(false);
+        setFormData({
+          address: '',
+          amount: '',
+          message: '',
+          keyword: '',
+        });
         console.log(transactionCount.toNumber());
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
   };
@@ -157,10 +167,11 @@ function Index() {
               name="message"
             />
             <Button
+              disabled={loading}
               sx={{ width: { xs: '100%' }, marginTop: '10px' }}
               type="submit"
             >
-              Send Now
+              {loading ? 'Loading' : 'Send Now'}
             </Button>
           </Form>
         </Grid>
