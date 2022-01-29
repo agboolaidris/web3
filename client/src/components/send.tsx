@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Grid, Container, Box, Theme, Typography } from '@mui/material';
 import InputText from './shared/inputText';
-import EthereumCard from './shared/etherumCard';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import ContactsIcon from '@mui/icons-material/Contacts';
