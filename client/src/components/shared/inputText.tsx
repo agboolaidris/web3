@@ -1,20 +1,30 @@
 import React, { ReactNode, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { IconButton, Theme } from '@mui/material';
-const InputWrapper = styled.div<{ theme?: Theme; error?: boolean }>`
+import { IconButton, Theme, alpha } from '@mui/material';
+const InputWrapper = styled.div<{
+  theme?: Theme;
+  error?: boolean;
+  bgColor?: string;
+  borderColor?: string;
+}>`
   width: 100%;
-
   div {
     width: 100%;
     height: 50px;
-    border: 2px solid ${({ theme }) => theme.colors.grey};
+    border: 2px solid
+      ${({ theme, borderColor }) =>
+        borderColor ? borderColor : theme.colors.grey};
+    background-color: ${({ theme, bgColor }) =>
+      bgColor ? bgColor : theme.palette.common.white};
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease-in-out;
     &:focus-within {
-      background-color: ${({ theme }) => theme.palette.common.white};
+      border: 2px solid
+        ${({ theme, bgColor }) =>
+          bgColor ? alpha(bgColor, 0.4) : theme.palette.common.white};
     }
     ${({ error, theme }) =>
       error &&
@@ -40,27 +50,37 @@ const InputWrapper = styled.div<{ theme?: Theme; error?: boolean }>`
 `;
 interface Props {
   placeholder: string;
-  Icon?: ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: React.HTMLInputTypeAttribute;
   error?: string;
   name: string;
+  bgColor?: string;
+  borderColor?: string;
 }
 function InputText({
   placeholder,
-  Icon,
+  leftIcon,
+  rightIcon,
   value,
   onChange,
   type,
   error,
   name,
+  bgColor,
+  borderColor,
 }: Props) {
   const err = useMemo(() => error, [error]);
   return (
-    <InputWrapper error={err ? err.length > 0 : false}>
+    <InputWrapper
+      error={err ? err.length > 0 : false}
+      bgColor={bgColor}
+      borderColor={borderColor}
+    >
       <div>
-        {Icon && <IconButton>{Icon}</IconButton>}
+        {leftIcon && <IconButton>{leftIcon}</IconButton>}
         <input
           value={value}
           placeholder={placeholder}
@@ -68,6 +88,7 @@ function InputText({
           type={type}
           name={name}
         />
+        {rightIcon && <IconButton>{rightIcon}</IconButton>}
       </div>
       {err && err.length > 0 && <span>{err}</span>}
     </InputWrapper>

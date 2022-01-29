@@ -126,7 +126,7 @@ function Index() {
             </Typography>
             <InputText
               placeholder="Address To"
-              Icon={<ContactsIcon />}
+              leftIcon={<ContactsIcon />}
               value={formData.address}
               error={errors.address}
               onChange={handleChange}
@@ -134,7 +134,7 @@ function Index() {
             />
             <InputText
               placeholder="Amount (ETH)"
-              Icon={<AttachMoneyIcon />}
+              leftIcon={<AttachMoneyIcon />}
               value={formData.amount}
               type="number"
               error={errors.amount}
@@ -143,7 +143,7 @@ function Index() {
             />
             <InputText
               placeholder="Key word (Gif)"
-              Icon={<CardGiftcardIcon />}
+              leftIcon={<CardGiftcardIcon />}
               value={formData.keyword}
               error={errors.keyword}
               onChange={handleChange}
@@ -151,7 +151,7 @@ function Index() {
             />
             <InputText
               placeholder="Enter Message"
-              Icon={<CreateIcon />}
+              leftIcon={<CreateIcon />}
               value={formData.message}
               error={errors.message}
               onChange={handleChange}

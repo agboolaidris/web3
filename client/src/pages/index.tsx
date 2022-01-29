@@ -3,6 +3,7 @@ import Layout from '../layout';
 import Welcome from '../components/welcome';
 import Send from '../components/send';
 import Service from '../components/service';
+import Footer from '../components/footer';
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Welcome />
       <Send />
       <Service />
+      <Footer />
     </Layout>
   );
 };

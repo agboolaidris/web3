@@ -11,8 +11,11 @@ const Wrap = styled.div<{ theme?: Theme }>`
   background-attachment: fixed;
   background-size: contain;
   color: ${({ theme }) => theme.palette.common.white};
-  height: 100vh;
+  min-height: min(100vh, 1000px);
   padding-top: 100px;
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    min-height: 100vh;
+  }
 `;
 
 const IconWrap = styled.div<{ theme?: Theme }>`
