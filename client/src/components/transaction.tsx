@@ -1,10 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Box, Stack, useTheme } from '@mui/material';
 import TransactionCard from './shared/TransactionCard';
+import { getEthereumContract } from '../utils/contract';
 
+interface dataProp {
+  amount: any;
+  from: string;
+  reciever: string;
+  keyword: string;
+  timestamp: any;
+  message: string;
+}
 function Transactions() {
+  const [data, setData] = useState<dataProp[]>([]);
   useEffect(() => {
-    const transactionContract = getEthereumContract();
+    (async () => {
+      const { ethereum } = window as any;
+      if (!ethereum) {
+        return null;
+      }
+      const transactionContract = getEthereumContract();
+      const res: dataProp[] = await transactionContract.getAllTransaction();
+
+      setData(res);
+    })();
   }, []);
 
   const theme = useTheme();
@@ -58,9 +77,24 @@ function Transactions() {
           alignItems="center"
           sx={{ marginTop: 5 }}
         >
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
+          {data
+            .concat()
+            .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+            .slice(0, 3)
+            .map((tran, i) => {
+              console.log(tran.amount._hex);
+              return (
+                <TransactionCard
+                  key={i}
+                  from={tran.from}
+                  reciever={tran.reciever}
+                  amount={parseInt(tran.amount._hex) / 10 ** 18}
+                  date={new Date(
+                    tran.timestamp.toNumber() * 1000
+                  ).toLocaleString()}
+                />
+              );
+            })}
         </Stack>
       </Stack>
     </Container>
