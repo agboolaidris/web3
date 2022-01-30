@@ -11,7 +11,7 @@ import { Button } from './shared/button';
 import { getEthereumContract } from '../utils/contract';
 import { ethers } from 'ethers';
 import { TransactionContext } from '../context/transaction';
-
+import { toast } from 'react-toastify';
 const Form = styled.form<{ theme?: Theme }>`
   width: 600px;
   max-width: 100%;
@@ -92,9 +92,6 @@ function Index() {
           keyword
         );
 
-        const transactionCount =
-          await transactionContract.getTransactionCount();
-
         setLoading(false);
         setFormData({
           address: '',
@@ -102,9 +99,8 @@ function Index() {
           message: '',
           keyword: '',
         });
-        console.log(transactionCount.toNumber());
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
         setLoading(false);
       }
     }
@@ -131,7 +127,6 @@ function Index() {
               height="500px"
               layout="intrinsic"
             />
-            {/* <EthereumCard /> */}
           </Box>
         </Grid>
         <Grid md={6} xs={12} sx={{ marginY: { xs: 10, md: 0 } }}>
