@@ -38,16 +38,21 @@ function Index() {
   });
   const [loading, setLoading] = useState(false);
 
-  const { userAccount } = useContext(TransactionContext);
+  const { userAccount, connectToWallet } = useContext(TransactionContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ address: '', amount: '', message: '', keyword: '' });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { address, amount, keyword, message } = formData;
     const { ethereum } = window as any;
+    if (!ethereum) {
+      connectToWallet();
+      return null;
+    }
 
     if (
       address.trim() == '' ||
@@ -104,6 +109,7 @@ function Index() {
       }
     }
   };
+
   return (
     <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
       <Grid container width="100%" spacing={1} alignItems="center">

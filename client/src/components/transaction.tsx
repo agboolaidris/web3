@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography, Box, Stack, useTheme } from '@mui/material';
 import TransactionCard from './shared/TransactionCard';
 
 function Transactions() {
+  useEffect(() => {
+    const transactionContract = getEthereumContract();
+  }, []);
+
   const theme = useTheme();
   return (
     <Container sx={{ paddingY: { xs: '40px', md: '70px' } }}>
