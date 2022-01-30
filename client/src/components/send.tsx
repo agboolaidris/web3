@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Grid, Container, Box, Theme, Typography } from '@mui/material';
+import {
+  Grid,
+  Container,
+  Box,
+  Theme,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import InputText from './shared/inputText';
 import Image from 'next/image';
 import styled from '@emotion/styled';
@@ -11,6 +18,7 @@ import { Button } from './shared/button';
 import { getEthereumContract } from '../utils/contract';
 import { ethers } from 'ethers';
 import { TransactionContext } from '../context/transaction';
+import { HashLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 const Form = styled.form<{ theme?: Theme }>`
   width: 600px;
@@ -24,12 +32,14 @@ const Form = styled.form<{ theme?: Theme }>`
 `;
 
 function Index() {
+  const theme = useTheme();
   const [formData, setFormData] = useState({
     address: '',
     amount: '',
     message: '',
     keyword: '',
   });
+
   const [errors, setErrors] = useState({
     address: '',
     amount: '',
@@ -172,7 +182,11 @@ function Index() {
               sx={{ width: { xs: '100%' }, marginTop: '10px' }}
               type="submit"
             >
-              {loading ? 'Loading' : 'Send Now'}
+              {loading ? (
+                <HashLoader color={theme.colors.background} size="25px" />
+              ) : (
+                'Send Now'
+              )}
             </Button>
           </Form>
         </Grid>

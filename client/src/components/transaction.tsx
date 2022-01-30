@@ -15,6 +15,7 @@ function Transactions() {
   const [data, setData] = useState<dataProp[]>([]);
   const [loading, setloading] = useState(false);
   const [metaMaskInstall, setMetaMaskInstall] = useState(true);
+  const theme = useTheme();
   useEffect(() => {
     (async () => {
       const { ethereum } = window as any;
@@ -32,7 +33,6 @@ function Transactions() {
     })();
   }, []);
 
-  const theme = useTheme();
   return (
     <Container sx={{ paddingY: { xs: '40px', md: '70px' } }}>
       {loading ? (
