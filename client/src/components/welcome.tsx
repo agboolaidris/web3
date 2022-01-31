@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { Box, Container, Typography, Theme } from '@mui/material';
 import EthereumIcon from './svg/ethureum';
 import { Button } from './shared/button';
-import { connectToWallet } from '../utils/contract';
+import { TransactionContext } from '../context/transaction';
 
 const Wrap = styled.div<{ theme?: Theme }>`
   background-color: #5e6c86;
@@ -33,6 +33,7 @@ const IconWrap = styled.div<{ theme?: Theme }>`
 `;
 
 function Index() {
+  const { connectToWallet } = useContext(TransactionContext);
   return (
     <Wrap>
       <Container sx={{ paddingY: { md: 10, xs: 4 } }}>

@@ -7,6 +7,9 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../styles/theme';
 import createEmotionCache from '../../src/lib/createEmotionCache';
 import { TransactionProvider } from '../context/transaction';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -27,6 +30,7 @@ const App = (props: MyAppProps) => {
         <CssBaseline />
         <TransactionProvider>
           <Component {...pageProps} />
+          <ToastContainer />
         </TransactionProvider>
       </ThemeProvider>
     </CacheProvider>

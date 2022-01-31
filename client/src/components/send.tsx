@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Grid, Container, Box, Theme, Typography } from '@mui/material';
+import {
+  Grid,
+  Container,
+  Box,
+  Theme,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import InputText from './shared/inputText';
 import Image from 'next/image';
 import styled from '@emotion/styled';
@@ -11,7 +18,8 @@ import { Button } from './shared/button';
 import { getEthereumContract } from '../utils/contract';
 import { ethers } from 'ethers';
 import { TransactionContext } from '../context/transaction';
-
+import { HashLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 const Form = styled.form<{ theme?: Theme }>`
   width: 600px;
   max-width: 100%;
@@ -24,29 +32,37 @@ const Form = styled.form<{ theme?: Theme }>`
 `;
 
 function Index() {
+  const theme = useTheme();
   const [formData, setFormData] = useState({
     address: '',
     amount: '',
     message: '',
     keyword: '',
   });
+
   const [errors, setErrors] = useState({
     address: '',
     amount: '',
     message: '',
     keyword: '',
   });
+  const [loading, setLoading] = useState(false);
 
-  const { userAccount } = useContext(TransactionContext);
+  const { userAccount, connectToWallet } = useContext(TransactionContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ address: '', amount: '', message: '', keyword: '' });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { address, amount, keyword, message } = formData;
     const { ethereum } = window as any;
+    if (!ethereum) {
+      connectToWallet();
+      return null;
+    }
 
     if (
       address.trim() == '' ||
@@ -66,6 +82,7 @@ function Index() {
       try {
         const transactionContract = getEthereumContract();
         const hex_amount = ethers.utils.parseEther(amount)._hex;
+        setLoading(true);
         await ethereum.request({
           method: 'eth_sendTransaction',
           params: [
@@ -73,7 +90,6 @@ function Index() {
               from: userAccount,
               to: address,
               gas: '0x76c0', // 30400
-              // gasPrice: '0x9184e72a000', // 10000000000000
               value: hex_amount,
             },
           ],
@@ -86,14 +102,20 @@ function Index() {
           keyword
         );
 
-        const transactionCount =
-          await transactionContract.getTransactionCount();
-        console.log(transactionCount.toNumber());
+        setLoading(false);
+        setFormData({
+          address: '',
+          amount: '',
+          message: '',
+          keyword: '',
+        });
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
+        setLoading(false);
       }
     }
   };
+
   return (
     <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
       <Grid container width="100%" spacing={1} alignItems="center">
@@ -115,7 +137,6 @@ function Index() {
               height="500px"
               layout="intrinsic"
             />
-            {/* <EthereumCard /> */}
           </Box>
         </Grid>
         <Grid md={6} xs={12} sx={{ marginY: { xs: 10, md: 0 } }}>
@@ -157,10 +178,15 @@ function Index() {
               name="message"
             />
             <Button
+              disabled={loading}
               sx={{ width: { xs: '100%' }, marginTop: '10px' }}
               type="submit"
             >
-              Send Now
+              {loading ? (
+                <HashLoader color={theme.colors.background} size="25px" />
+              ) : (
+                'Send Now'
+              )}
             </Button>
           </Form>
         </Grid>

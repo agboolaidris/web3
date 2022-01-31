@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { smart_address, contract_abi } from '../utils/constant';
+import { smart_address, contract_abi } from './constant';
 
 export const getEthereumContract = () => {
   const { ethereum } = window as any;
@@ -11,19 +11,4 @@ export const getEthereumContract = () => {
     signer
   );
   return transactionContract;
-};
-
-export const connectToWallet = async () => {
-  try {
-    const { ethereum } = window as any;
-    if (!ethereum) return alert('install metamask');
-    else {
-      const account = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      console.log(account);
-    }
-  } catch (error) {
-    console.log(error);
-  }
 };

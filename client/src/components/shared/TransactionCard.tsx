@@ -36,13 +36,36 @@ const IconWrap = styled.div<{ theme?: Theme }>`
     height: 35px;
   }
 `;
-function ServiceCard() {
+
+interface Props {
+  from: string;
+  reciever: string;
+  amount: number;
+  date: any;
+}
+function ServiceCard({ from, reciever, amount, date }: Props) {
   return (
     <Wrapper>
       <Stack direction="row" justifyContent="space-between">
         <Box>
+          <Typography
+            sx={{
+              fontSize: '0.8rem',
+              fontWeight: 'bolder',
+            }}
+          >
+            Reciever:{' '}
+            <Typography variant="caption">
+              {reciever.substring(0, 3)}...
+              {reciever.substring(from.length - 4, from.length - 1)}
+            </Typography>
+          </Typography>
           <Typography sx={{ fontSize: '0.8rem', fontWeight: 'bolder' }}>
-            Amount: <Typography variant="caption"> 0.00ETH</Typography>
+            From:{' '}
+            <Typography variant="caption">
+              {from.substring(0, 3)}...
+              {from.substring(from.length - 4, from.length - 1)}
+            </Typography>
           </Typography>
         </Box>
         <IconWrap>
@@ -56,9 +79,8 @@ function ServiceCard() {
       >
         <Box>
           <Typography sx={{ fontSize: '0.8rem', fontWeight: 'bolder' }}>
-            FROM:
+            Amount: <Typography variant="caption"> {amount}ETH</Typography>
           </Typography>
-          <Typography variant="caption"> XT425..6D6</Typography>
         </Box>
         <Box>
           <Typography
@@ -67,9 +89,8 @@ function ServiceCard() {
               fontWeight: 'bolder',
             }}
           >
-            TO:
+            {date}
           </Typography>
-          <Typography variant="caption"> PT25..6D6</Typography>
         </Box>
       </Stack>
     </Wrapper>
