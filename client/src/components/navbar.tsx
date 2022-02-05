@@ -110,7 +110,7 @@ export default function Index() {
       </IconButton>
 
       <Menu open={open}>
-        {['Exchange', 'Wallets', 'Market', 'Service'].map((item, i) => {
+        {['Exchange', 'Service', 'Transactions', 'About'].map((item, i) => {
           return (
             <ListItem item={item} key={i} onClick={() => setOpen(false)} />
           );

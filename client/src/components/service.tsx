@@ -10,6 +10,7 @@ import {
   useTheme,
 } from '@mui/material';
 import ServiceCard from './shared/serviceCard';
+import SecurityUpdateGoodRoundedIcon from '@mui/icons-material/SecurityUpdateGoodRounded';
 
 const Wrapper = styled.div<{ theme?: Theme }>`
   background: ${({ theme }) => alpha(theme.colors.grey, 0.1)};
@@ -50,9 +51,15 @@ function Service() {
           alignItems="center"
           sx={{ marginTop: 5 }}
         >
-          <ServiceCard />
-          <ServiceCard />
-          <ServiceCard />
+          <ServiceCard
+            title="Security"
+            content="lorem dggd svsvs ssvv svsvs vsvvs vvsvsb vvvs ibbs"
+            icon={
+              <SecurityUpdateGoodRoundedIcon
+                sx={{ color: theme.colors.background }}
+              />
+            }
+          />
         </Stack>
       </Container>
     </Wrapper>
