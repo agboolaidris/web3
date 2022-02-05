@@ -84,9 +84,9 @@ function Footer() {
               EasyCoin
             </Typography>
             <Typography sx={{ color: alpha(theme.colors.background, 0.5) }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Cupiditate suscipit aspernatur totam voluptatem harum voluptatibus
-              maiores.
+              Our vision is to increase the freedom of money globally. We
+              believe that by spreading this freedom, we can significantly
+              improve lives around the world
             </Typography>
             <Box sx={{ marginTop: 3, maxWidth: '400px', width: '100%' }}>
               <Typography variant="h6">Subscribe</Typography>
