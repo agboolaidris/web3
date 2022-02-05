@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container, Typography, Box, Stack, useTheme } from '@mui/material';
 import TransactionCard from './shared/TransactionCard';
 import { getEthereumContract } from '../utils/contract';
+import { TransactionContext } from '../context/transaction';
 import { HashLoader } from 'react-spinners';
 interface dataProp {
   amount: any;
@@ -13,6 +14,7 @@ interface dataProp {
 }
 function Transactions() {
   const [data, setData] = useState<dataProp[]>([]);
+  const { userAccount } = useContext(TransactionContext);
   const [loading, setloading] = useState(false);
   const [metaMaskInstall, setMetaMaskInstall] = useState(true);
   const theme = useTheme();
@@ -21,17 +23,17 @@ function Transactions() {
       const { ethereum } = window as any;
       if (!ethereum) {
         setMetaMaskInstall(false);
-        return null;
+      } else {
+        if (userAccount.length > 0) {
+          setloading(true);
+          const transactionContract = getEthereumContract();
+          const res: dataProp[] = await transactionContract.getAllTransaction();
+          setData(res);
+          setloading(false);
+        }
       }
-
-      setloading(true);
-      const transactionContract = getEthereumContract();
-      const res: dataProp[] = await transactionContract.getAllTransaction();
-
-      setData(res);
-      setloading(false);
     })();
-  }, []);
+  }, [userAccount]);
 
   return (
     <Container sx={{ paddingY: { xs: '40px', md: '70px' } }}>

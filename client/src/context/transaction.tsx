@@ -51,7 +51,10 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     const checkedIFWalletIsConnected = async () => {
       if (!ethereum) setOpen(true);
       else {
-        const account = await ethereum.request({ method: 'eth_accounts' });
+        await ethereum.enable();
+        const account = await ethereum.request({
+          method: 'eth_requestAccounts',
+        });
         if (account.length > 0) {
           setUserAccount(account[0]);
         }
