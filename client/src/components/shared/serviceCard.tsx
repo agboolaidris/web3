@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { IconButton, Theme, Typography, useTheme, alpha } from '@mui/material';
-import SecurityUpdateGoodRoundedIcon from '@mui/icons-material/SecurityUpdateGoodRounded';
 
 const Wrapper = styled.div<{ theme?: Theme }>`
   position: relative;
   width: 300px;
   max-width: 100%;
-  min-height: 300px;
+  //min-height: 300px;
   box-shadow: 1px 1px 5px 5px ${({ theme }) => theme.colors.grey};
   padding: 30px;
   overflow: hidden;
@@ -29,24 +28,23 @@ const Wrapper = styled.div<{ theme?: Theme }>`
     }
   }
 `;
-function ServiceCard() {
+
+interface Props {
+  title: string;
+  content: string;
+  icon: ReactNode;
+}
+function ServiceCard({ title, content, icon }: Props) {
   const theme = useTheme();
   return (
     <Wrapper>
       <IconButton sx={{ backgroundColor: theme.colors.pink }}>
-        <SecurityUpdateGoodRoundedIcon
-          sx={{ color: theme.colors.background }}
-        />
+        {icon}
       </IconButton>
       <Typography variant="h6" sx={{ fontSize: '1.2rem', marginTop: 2 }}>
-        Security
+        {title}
       </Typography>
-      <Typography>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa assumenda
-        veniam harum dolorem laborum, officiis temporibus laboriosam inventore
-        atque illo iusto voluptate. Magnam quaerat voluptate consequatur aliquam
-        alias voluptatum consequuntur?
-      </Typography>
+      <Typography>{content}</Typography>
       <div className="div"></div>
     </Wrapper>
   );
