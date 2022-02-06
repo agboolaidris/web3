@@ -70,7 +70,7 @@ function Footer() {
   const theme = useTheme();
   const [formData, setFormData] = useState('');
   return (
-    <Wrap>
+    <Wrap id="about">
       <Container>
         <Stack
           direction={{ xs: 'column', md: 'row' }}

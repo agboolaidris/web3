@@ -117,7 +117,7 @@ function Index() {
   };
 
   return (
-    <Container sx={{ paddingY: { md: 15, xs: 5 } }}>
+    <Container sx={{ paddingY: { md: 15, xs: 5 } }} id="exchange">
       <Grid container width="100%" spacing={1} alignItems="center">
         <Grid md={6} xs={12}>
           <Box

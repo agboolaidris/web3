@@ -4,7 +4,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "test": "jest --watch --env=jsdom",
     "test:ci": "jest --ci"
   },
@@ -18,7 +18,9 @@
     "ethers": "^5.5.3",
     "next": "latest",
     "react": "^17.0.2",
+    "react-animated-text": "^0.1.4",
     "react-dom": "^17.0.2",
+    "react-scroll": "^1.8.4",
     "react-spinners": "^0.11.0",
     "react-toastify": "^8.1.0"
   },
@@ -30,6 +32,7 @@
     "@testing-library/user-event": "13.2.1",
     "@types/jest": "^27.0.2",
     "@types/react": "^17.0.33",
+    "@types/react-scroll": "^1.8.3",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "babel-jest": "27.0.6",

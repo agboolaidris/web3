@@ -39,7 +39,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
         const account = await ethereum.request({
           method: 'eth_requestAccounts',
         });
-        console.log(account);
+        setUserAccount(account[0]);
       }
     } catch (error) {
       setOpen(true);
@@ -49,15 +49,19 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const { ethereum } = window as any;
     const checkedIFWalletIsConnected = async () => {
-      if (!ethereum) setOpen(true);
-      else {
-        await ethereum.enable();
-        const account = await ethereum.request({
-          method: 'eth_requestAccounts',
-        });
-        if (account.length > 0) {
-          setUserAccount(account[0]);
+      try {
+        if (!ethereum) setOpen(true);
+        else {
+          await ethereum.enable();
+          const account = await ethereum.request({
+            method: 'eth_requestAccounts',
+          });
+          if (account.length > 0) {
+            setUserAccount(account[0]);
+          }
         }
+      } catch (error) {
+        setOpen(true);
       }
     };
     checkedIFWalletIsConnected();
@@ -72,11 +76,11 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
         onClose={() => setOpen(false)}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Please!!! Install Metamask</DialogTitle>
+        <DialogTitle>Install and Connect Metamask</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            This platform is build with web3, kindly install metamask extension
-            on our browser
+            MetaMask is not connected to this site. To connect to a web3 site,
+            install Metamask and click the connect button.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

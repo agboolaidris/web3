@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import { IconButton, Typography, Toolbar, Box, Theme } from '@mui/material';
+import {
+  IconButton,
+  Typography,
+  Toolbar,
+  Box,
+  Theme,
+  useTheme,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { Link } from 'react-scroll';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Button } from './shared/button';
@@ -70,8 +77,19 @@ const ToolBar = styled(Toolbar)<{ theme?: Theme; bg: boolean; open?: boolean }>`
 `;
 
 const ListItem = ({ item, onClick }: { item: string; onClick: () => void }) => {
-  // const [active, setActive] = useState(false);
-  return <List onClick={onClick}>{item}</List>;
+  return (
+    <Link
+      activeClass="active"
+      to={item.toLowerCase()}
+      spy={true}
+      smooth={true}
+      offset={50}
+      duration={500}
+      style={{ display: 'block', width: '100%' }}
+    >
+      <List onClick={onClick}>{item}</List>
+    </Link>
+  );
 };
 
 export default function Index() {
@@ -94,9 +112,18 @@ export default function Index() {
 
   return (
     <ToolBar open={open} bg={bg}>
-      <Typography variant="h6" component="div" sx={{ mr: 2 }}>
-        EasyCoin
-      </Typography>
+      <Link
+        to="top"
+        spy={true}
+        smooth={true}
+        offset={50}
+        duration={500}
+        style={{ cursor: 'pointer' }}
+      >
+        <Typography variant="h6" component="div" sx={{ mr: 2 }}>
+          EasyCoin
+        </Typography>
+      </Link>
       <Box sx={{ flexGrow: 1 }} />
       <IconButton
         sx={{ display: { md: 'none' } }}
@@ -112,7 +139,7 @@ export default function Index() {
       <Menu open={open}>
         {['Exchange', 'Service', 'Transactions', 'About'].map((item, i) => {
           return (
-            <ListItem item={item} key={i} onClick={() => setOpen(false)} />
+            <ListItem item={item} onClick={() => setOpen(false)} key={i} />
           );
         })}
 

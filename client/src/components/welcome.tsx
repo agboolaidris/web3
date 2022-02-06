@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { Box, Container, Typography, Theme } from '@mui/material';
+import { Wave } from 'react-animated-text';
 import EthereumIcon from './svg/ethureum';
 import { Button } from './shared/button';
 import { TransactionContext } from '../context/transaction';
@@ -35,7 +36,7 @@ const IconWrap = styled.div<{ theme?: Theme }>`
 function Index() {
   const { connectToWallet } = useContext(TransactionContext);
   return (
-    <Wrap>
+    <Wrap id="top">
       <Container sx={{ paddingY: { md: 10, xs: 4 } }}>
         <Box
           sx={{
@@ -51,14 +52,21 @@ function Index() {
 
           <Typography
             variant="h3"
-            sx={{ fontSize: { xs: '2rem', md: '4em' }, marginTop: 1 }}
+            sx={{
+              fontSize: { xs: '3rem', md: '3.5rem', lg: '4rem' },
+              marginTop: 1,
+            }}
           >
-            Send crypto across the World
+            SEND CRYPTO ACROSS THE WORLD
           </Typography>
 
           <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
-            EasyCoin is the easiest place to buy and sell cryptocurrency. Sign
-            up and get started today.
+            <Wave
+              text="EasyCoin is the easiest place to buy and sell cryptocurrency. Sign
+              up and get started today."
+              effect="stretch"
+              effectChange={2.0}
+            />
           </Typography>
           <Button
             sx={{ width: { xs: '100%', sm: '400px' }, marginTop: 2 }}

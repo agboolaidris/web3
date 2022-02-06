@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import ServiceCard from './shared/serviceCard';
 import SecurityUpdateGoodRoundedIcon from '@mui/icons-material/SecurityUpdateGoodRounded';
+import BoltIcon from '@mui/icons-material/Bolt';
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 const Wrapper = styled.div<{ theme?: Theme }>`
   background: ${({ theme }) => alpha(theme.colors.grey, 0.1)};
@@ -18,7 +20,7 @@ const Wrapper = styled.div<{ theme?: Theme }>`
 function Service() {
   const theme = useTheme();
   return (
-    <Wrapper>
+    <Wrapper id="service">
       <Container sx={{ paddingY: { xs: '40px', md: '70px' } }}>
         <Box
           sx={{ width: 'fixed-content', marginX: 'auto', textAlign: 'center' }}
@@ -26,22 +28,13 @@ function Service() {
           <Typography
             sx={{
               fontSize: { xs: '2.5rem', md: '3rem' },
-              fontFamily: 'Princess Sofia',
             }}
           >
-            Service
+            The most trusted cryptocurrency platform
           </Typography>
-          <Box
-            sx={{
-              width: '150px',
-              height: '2px',
-              background: theme.colors.pink,
-              marginX: 'auto',
-              borderRadius: 5,
-            }}
-          ></Box>
+
           <Typography sx={{ marginTop: 1, opacity: '0.7' }}>
-            Service That we will continue to improve
+            Here are a few reasons why you should choose Easycoin
           </Typography>
         </Box>
         <Stack
@@ -53,12 +46,22 @@ function Service() {
         >
           <ServiceCard
             title="Security"
-            content="lorem dggd svsvs ssvv svsvs vsvvs vvsvsb vvvs ibbs"
+            content="Security is guaranted. We always maintain privacy and mainting the quality of our products."
             icon={
               <SecurityUpdateGoodRoundedIcon
                 sx={{ color: theme.colors.background }}
               />
             }
+          />
+          <ServiceCard
+            title="Fastest transactions"
+            content="Users can easily buy Bitcoin and other cryptocurrencies using a wide range of payment options, including bank transfer, credit or debit card, and cash. There’s a payment option for everyone on Easycoin."
+            icon={<BoltIcon sx={{ color: theme.colors.background }} />}
+          />
+          <ServiceCard
+            title="Best exchange rates"
+            content="Security is guaranted. We always maintain privacy and mainting the quality of our products."
+            icon={<StarRateIcon sx={{ color: theme.colors.background }} />}
           />
         </Stack>
       </Container>
