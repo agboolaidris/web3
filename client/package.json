@@ -4,7 +4,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "test": "jest --watch --env=jsdom",
     "test:ci": "jest --ci"
   },

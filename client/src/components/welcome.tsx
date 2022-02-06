@@ -51,7 +51,7 @@ function Index() {
 
           <Typography
             variant="h3"
-            sx={{ fontSize: { xs: '2rem', md: '4em' }, marginTop: 1 }}
+            sx={{ fontSize: { xs: '4em' }, marginTop: 1 }}
           >
             Send crypto across the World
           </Typography>
