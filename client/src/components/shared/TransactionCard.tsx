@@ -5,7 +5,6 @@ import Ethureum from '../svg/ethureum';
 const Wrapper = styled.div<{ theme?: Theme }>`
   position: relative;
   width: 100%;
-  max-width: 100%;
   min-height: 100px;
   border-radius: 10px;
   padding: 10px;

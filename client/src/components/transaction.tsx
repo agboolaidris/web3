@@ -57,7 +57,7 @@ function Transactions() {
           direction={{ xs: 'column' }}
           alignItems="center"
           justifyContent="center"
-          spacing={8}
+          spacing={2}
         >
           <Box
             sx={{
@@ -68,26 +68,14 @@ function Transactions() {
             <Typography
               sx={{
                 fontSize: '2.5rem',
-                display: { md: 'none' },
               }}
             >
               Transaction
             </Typography>
-            <Box
-              sx={{
-                width: '150px',
-                height: '2px',
-                background: theme.colors.pink,
-                marginX: 'auto',
-                borderRadius: 5,
-                display: { md: 'none' },
-              }}
-            ></Box>
+
             <Typography
               sx={{
-                marginTop: 1,
                 opacity: '0.7',
-                fontSize: { md: '3.5rem' },
               }}
             >
               {metaMaskInstall
@@ -97,7 +85,7 @@ function Transactions() {
           </Box>
           <Grid
             container
-            spacing={2}
+            spacing={{ xs: 1, md: 2 }}
             justifyContent="center"
             alignItems="center"
             alignContent="center"
@@ -108,7 +96,7 @@ function Transactions() {
               .slice(0, 7)
               .map((tran, i) => {
                 return (
-                  <Grid item key={i} xs={12} md={6} lg={4}>
+                  <Grid item key={i} xs={12} sm={6} lg={4}>
                     <TransactionCard
                       from={tran.from}
                       reciever={tran.reciever}
