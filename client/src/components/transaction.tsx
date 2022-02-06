@@ -43,7 +43,7 @@ function Transactions() {
   }, [userAccount]);
 
   return (
-    <Container sx={{ paddingY: { xs: '40px', md: '70px' } }}>
+    <Container sx={{ paddingY: { xs: '40px', md: '70px' } }} id="transactions">
       {loading ? (
         <Stack
           justifyContent="center"
