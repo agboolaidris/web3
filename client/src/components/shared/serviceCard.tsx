@@ -6,7 +6,7 @@ const Wrapper = styled.div<{ theme?: Theme }>`
   position: relative;
   width: 300px;
   max-width: 100%;
-  //min-height: 300px;
+  min-height: 300px;
   box-shadow: 1px 1px 5px 5px ${({ theme }) => theme.colors.grey};
   padding: 30px;
   overflow: hidden;

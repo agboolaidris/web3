@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Container, Typography, Box, Stack, useTheme } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Box,
+  Stack,
+  useTheme,
+  Grid,
+} from '@mui/material';
 import TransactionCard from './shared/TransactionCard';
 import { getEthereumContract } from '../utils/contract';
 import { TransactionContext } from '../context/transaction';
@@ -47,7 +54,7 @@ function Transactions() {
         </Stack>
       ) : (
         <Stack
-          direction={{ xs: 'column', md: 'row' }}
+          direction={{ xs: 'column' }}
           alignItems="center"
           justifyContent="center"
           spacing={8}
@@ -61,7 +68,6 @@ function Transactions() {
             <Typography
               sx={{
                 fontSize: '2.5rem',
-                fontFamily: 'Princess Sofia',
                 display: { md: 'none' },
               }}
             >
@@ -82,7 +88,6 @@ function Transactions() {
                 marginTop: 1,
                 opacity: '0.7',
                 fontSize: { md: '3.5rem' },
-                fontFamily: { md: 'Princess Sofia' },
               }}
             >
               {metaMaskInstall
@@ -90,31 +95,32 @@ function Transactions() {
                 : 'install Metamask to see the latest transactions'}
             </Typography>
           </Box>
-          <Stack
-            spacing={3}
+          <Grid
+            container
+            spacing={2}
             justifyContent="center"
             alignItems="center"
-            sx={{ marginTop: 5 }}
+            alignContent="center"
           >
             {data
               .concat()
               .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
-              .slice(0, 3)
+              .slice(0, 7)
               .map((tran, i) => {
-                console.log(tran.amount._hex);
                 return (
-                  <TransactionCard
-                    key={i}
-                    from={tran.from}
-                    reciever={tran.reciever}
-                    amount={parseInt(tran.amount._hex) / 10 ** 18}
-                    date={new Date(
-                      tran.timestamp.toNumber() * 1000
-                    ).toLocaleString()}
-                  />
+                  <Grid item key={i} xs={12} md={6} lg={4}>
+                    <TransactionCard
+                      from={tran.from}
+                      reciever={tran.reciever}
+                      amount={parseInt(tran.amount._hex) / 10 ** 18}
+                      date={new Date(
+                        tran.timestamp.toNumber() * 1000
+                      ).toLocaleString()}
+                    />
+                  </Grid>
                 );
               })}
-          </Stack>
+          </Grid>
         </Stack>
       )}
     </Container>
