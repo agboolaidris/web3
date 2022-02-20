@@ -60,13 +60,23 @@ function Index() {
             SEND CRYPTO ACROSS THE WORLD
           </Typography>
 
-          <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ marginTop: 1, display: { xs: 'none', md: 'block' } }}
+          >
             <Wave
               text="EasyCoin is the easiest place to buy and sell cryptocurrency. Sign
               up and get started today."
               effect="stretch"
               effectChange={2.0}
             />
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{ marginTop: 1, display: { md: 'none' } }}
+          >
+            EasyCoin is the easiest place to buy and sell cryptocurrency. Sign
+            up and get started today."
           </Typography>
           <Button
             sx={{ width: { xs: '100%', sm: '400px' }, marginTop: 2 }}
